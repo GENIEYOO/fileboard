@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Board">
+	<select id="ShowList" resultType="hashMap">
+		select
+		* from ARTICLE;
+	</select>
+
+
+	<insert id="boardInsert" parameterType="com.ahope.board.board.dao.BoardVO">
+		INSERT
+		INTO ARTICLE(a_no, a_title, a_user, content, regdate)
+		VALUES (#{a_no}, #{a_title},#{a_user},#{content}, NOW())
+	</insert>
+
+	<update id="boardUpdate" parameterType="com.ahope.board.board.dao.BoardVO">
+		UPDATE ARTICLE
+		SET a_title=#{a_title}, a_user=#{a_user}, content=#{content}
+		WHERE a_no=#{a_no}
+	</update>
+
+	<select id="selectBoardOne" parameterType="String" resultType="com.ahope.board.board.dao.BoardVO">
+		SELECT a_no, a_title, a_user, content, regdate, hit
+		FROM ARTICLE
+		WHERE a_no=#{a_no}
+	</select>
+	
+	
+	<delete id="deleteBoardOne" parameterType="String">
+		DELETE
+		 FROM ARTICLE
+		 WHERE a_no=#{a_no}
+	</delete>
+	
+</mapper>
